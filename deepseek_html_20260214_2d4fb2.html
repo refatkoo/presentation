@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StroyGO — будущее строительства</title>
+    <!-- Font Awesome 5 (иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            color: #1a2639;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* современный градиентный фон для секций */
+        .gradient-bg {
+            background: linear-gradient(145deg, #ffffff 0%, #f2f6fe 100%);
+        }
+
+        .accent-glow {
+            box-shadow: 0 25px 50px -12px rgba(0, 100, 200, 0.25);
+        }
+
+        /* контейнер */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        /* заголовки */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0b2b4f, #1f4b8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #1e3a6f, #2b5ca3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2 i {
+            color: #2b5ca3;
+            margin-right: 12px;
+            font-size: 2.5rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #7b9fe0);
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        /* карточки с эффектом стекла */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 30px 50px -20px rgba(0, 40, 100, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 40px 60px -15px #1e3a6f66;
+        }
+
+        /* сетки */
+        .grid-2, .grid-3, .grid-4 {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 900px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+        }
+
+        /* кнопки / баджи */
+        .badge {
+            display: inline-block;
+            background: #ffffffd9;
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1f4b8a;
+            border: 1px solid #ffffff;
+            box-shadow: 0 8px 20px -10px #2563eb;
+        }
+
+        /* иконки в кружках */
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(125deg, #d4e2fc, #ffffff);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #1f4b8a;
+            box-shadow: 0 15px 25px -8px #1e3a6f80;
+            margin-bottom: 1.8rem;
+            transition: 0.2s;
+        }
+
+        .glass-card:hover .icon-circle {
+            background: linear-gradient(125deg, #c2d6ff, #ffffff);
+            transform: scale(1.05);
+        }
+
+        /* список преимуществ с иконками */
+        .feature-list li {
+            list-style: none;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        .feature-list li i {
+            color: #2563eb;
+            font-size: 1.4rem;
+            width: 28px;
+        }
+
+        /* монетизация — карточки табов */
+        .monetization-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: #ffffffb3;
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            padding: 2.5rem;
+            border: 1px solid #ffffff;
+        }
+
+        .monet-item {
+            flex: 1 1 200px;
+            background: #eef4ff;
+            border-radius: 28px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid white;
+        }
+
+        .monet-item .big-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #103a5e, #2870b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .monet-item small {
+            color: #3f5468;
+            font-weight: 600;
+        }
+
+        /* эффект параллакса для фона (легкий) */
+        .floating-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .floating-bg::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #2563eb20 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #ffffffb3;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #103a5e;
+            border: 1px solid white;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .hero-image {
+            flex: 1 1 300px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><circle cx="200" cy="200" r="180" fill="%232563eb10"/><path d="M150 130 L250 130 L280 220 L120 220 Z" fill="%23ffffffcc" stroke="%232563eb" stroke-width="3"/><circle cx="190" cy="180" r="10" fill="%232563eb"/><circle cx="240" cy="180" r="10" fill="%232563eb"/><path d="M170 250 Q200 290 230 250" stroke="%232563eb" stroke-width="4" fill="none"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 280px;
+            filter: drop-shadow(0 20px 15px #0000001a);
+        }
+
+        /* футер */
+        .footer {
+            background: #0b1f33;
+            color: white;
+            border-radius: 60px 60px 0 0;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: #9bbcee;
+        }
+
+        /* маленькие анимации */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero секция -->
+<section class="floating-bg" style="padding-top: 2rem;">
+    <div class="container">
+        <div class="hero">
+            <div class="hero-text">
+                <span class="hero-badge"><i class="fas fa-rocket" style="margin-right: 8px;"></i> Новая эра строительства</span>
+                <h1>StroyGO: Революция в сфере строительства</h1>
+                <p style="font-size: 1.3rem; color: #2a405c; margin: 1.5rem 0 2rem;">Инновации встречают эффективность. Прямые поставки, умная логистика и экосистема для профессионалов.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <span class="badge"><i class="fas fa-check-circle"></i> Без посредников</span>
+                    <span class="badge"><i class="fas fa-truck"></i> Доставка 24/7</span>
+                    <span class="badge"><i class="fas fa-mobile-alt"></i> Скоро приложение</span>
+                </div>
+            </div>
+            <div class="hero-image float-animation"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Миссия -->
+<section class="container">
+    <div class="glass-card" style="padding: 3rem;">
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: center;">
+            <div style="flex: 2;">
+                <h2 style="margin-top: 0;"><i class="fas fa-bullseye"></i> Наша миссия</h2>
+                <p style="font-size: 1.3rem; font-weight: 500; margin-bottom: 1.5rem;">Доступность и эффективность для каждого</p>
+                <div class="grid-2" style="margin-top: 2rem;">
+                    <div><i class="fas fa-factory" style="font-size: 2rem; color: #1e4a7a;"></i> <strong>Прямые поставки</strong><br>Цены производителей без наценок</div>
+                    <div><i class="fas fa-road" style="font-size: 2rem; color: #1e4a7a;"></i> <strong>Доход на логистике</strong><br>Быстрая доставка — наш приоритет</div>
+                </div>
+            </div>
+            <div style="flex: 1; background: #2563eb10; border-radius: 40px; padding: 2rem; text-align: center;">
+                <span style="font-size: 4rem;">🏗️</span>
+                <p style="font-weight: 600;">StroyGO — комплексное решение для всех этапов стройки</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ваш инструмент + приложение -->
+<section class="container">
+    <h2><i class="fas fa-tablet-alt"></i> StroyGO: ваш инструмент заказа</h2>
+    <div class="grid-2">
+        <div class="glass-card">
+            <div class="icon-circle"><i class="fas fa-cubes"></i></div>
+            <h3 style="font-size: 2rem;">Умный заказ материалов</h3>
+            <p>Автоматизация, трекинг, персональные предложения — всё в мобильном приложении. Мы превращаем сложный процесс в один клик.</p>
+            <div style="margin-top: 1.5rem; color: #2563eb;"><i class="fas fa-arrow-right"></i> Скоро на iOS/Android</div>
+        </div>
+        <div class="glass-card" style="background: linear-gradient(135deg, #eef4fe, #ffffff);">
+            <div class="icon-circle"><i class="fas fa-hard-hat"></i></div>
+            <h3 style="font-size: 2rem;">Строитель в один клик</h3>
+            <p>Исполнителям — заказы, заказчикам — проверенные мастера. Геопоиск, портфолио, мгновенная связь.</p>
+            <div class="feature-list" style="margin-top: 1rem;">
+                <li><i class="fas fa-map-marker-alt"></i> Поиск объектов рядом</li>
+                <li><i class="fas fa-bell"></i> Уведомления о вакансиях</li>
+                <li><i class="fas fa-star"></i> Рейтинги и отзывы</li>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Для кого: строители и заказчики (двойной блок) -->
+<section class="container">
+    <div class="grid-2">
+        <div class="glass-card" style="border-left: 8px solid #2563eb;">
+            <h3><i class="fas fa-tools"></i> Для строителей</h3>
+            <ul class="feature-list">
+                <li><i class="fas fa-id-card"></i> Профиль с опытом и портфолио</li>
+                <li><i class="fas fa-map-marked-alt"></i> Геолокационный поиск объектов</li>
+                <li><i class="fas fa-bolt"></i> Мгновенные уведомления о работе</li>
+            </ul>
+        </div>
+        <div class="glass-card" style="border-left: 8px solid #2b8a5c;">
+            <h3><i class="fas fa-user-tie"></i> Для заказчиков</h3>
+            <ul class="feature-list">
+                <li><i class="fas fa-pen"></i> Простой интерфейс заявки</li>
+                <li><i class="fas fa-user-check"></i> Быстрый подбор специалистов</li>
+                <li><i class="fas fa-comment-dots"></i> Прямая связь с исполнителем</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Модель монетизации -->
+<section class="container">
+    <h2><i class="fas fa-coins"></i> Монетизация: честное партнёрство</h2>
+    <div class="monetization-block">
+        <div class="monet-item">
+            <i class="fas fa-truck-fast" style="font-size: 3rem; color: #1f4b8a;"></i>
+            <div class="big-number">70%</div>
+            <small>доход от логистики</small>
+            <p style="margin-top: 1rem;">Быстрая доставка — основа стабильности и низких цен</p>
+        </div>
+        <div class="monet-item">
+            <i class="fas fa-hand-holding-usd" style="font-size: 3rem; color: #1f4b8a;"></i>
+            <div class="big-number">%</div>
+            <small>процент от заказов строителей</small>
+            <p style="margin-top: 1rem;">В будущем — небольшие отчисления за найденные проекты</p>
+        </div>
+        <div class="monet-item">
+            <i class="fas fa-handshake" style="font-size: 3rem; color: #1f4b8a;"></i>
+            <p><strong>Прозрачность</strong><br>Каждый участник экосистемы в выигрыше</p>
+        </div>
+    </div>
+</section>
+
+<!-- Производителям -->
+<section class="container">
+    <h2><i class="fas fa-handshake"></i> Производителям</h2>
+    <div class="grid-3">
+        <div class="glass-card"><i class="fas fa-chart-line" style="font-size: 3rem; color: #2563eb;"></i> <h3>Расширение рынка</h3>Прямой доступ к тысячам заказчиков и бригад.</div>
+        <div class="glass-card"><i class="fas fa-medal" style="font-size: 3rem; color: #2563eb;"></i> <h3>Укрепление бренда</h3>Ваш продукт — на современной технологичной платформе.</div>
+        <div class="glass-card"><i class="fas fa-gears" style="font-size: 3rem; color: #2563eb;"></i> <h3>Эффективность продаж</h3>Снижение издержек, мы занимаемся логистикой.</div>
+    </div>
+</section>
+
+<!-- Наши преимущества (4 карточки с иконками) -->
+<section class="container">
+    <h2><i class="fas fa-star"></i> Почему StroyGO</h2>
+    <div class="grid-4">
+        <div class="glass-card" style="text-align: center;"><i class="fas fa-robot" style="font-size: 3rem;"></i> <strong>Инновационный подход</strong><br>Цифровая экосистема для всех</div>
+        <div class="glass-card" style="text-align: center;"><i class="fas fa-tag" style="font-size: 3rem;"></i> <strong>Конкурентные цены</strong><br>Без посредников</div>
+        <div class="glass-card" style="text-align: center;"><i class="fas fa-rocket" style="font-size: 3rem;"></i> <strong>Удобство и скорость</strong><br>Автоматизация каждого шага</div>
+        <div class="glass-card" style="text-align: center;"><i class="fas fa-chart-pie" style="font-size: 3rem;"></i> <strong>Перспективы роста</strong><br>Функции и охват расширяются</div>
+    </div>
+</section>
+
+<!-- Призыв: строим будущее вместе -->
+<section class="container">
+    <div class="glass-card" style="background: linear-gradient(125deg, #091e30, #103a5e); color: white; text-align: center;">
+        <h2 style="color: white; -webkit-text-fill-color: white; background: none;">🤝 StroyGO: Строим Будущее Вместе!</h2>
+        <p style="font-size: 1.3rem; margin: 1rem 0;">Присоединяйтесь к партнёрству, где инновации встречают качество. Станьте частью истории успеха!</p>
+        <div style="display: flex; gap: 20px; justify-content: center; font-size: 1.5rem; margin-top: 2rem;">
+            <span class="badge" style="background: white; color: #0b2b4f;"><i class="fas fa-handshake"></i> Партнёрство</span>
+            <span class="badge" style="background: white; color: #0b2b4f;"><i class="fas fa-lightbulb"></i> Инновации</span>
+            <span class="badge" style="background: white; color: #0b2b4f;"><i class="fas fa-crown"></i> StroyGO</span>
+        </div>
+    </div>
+</section>
+
+<!-- Footer / контакты (стилизован) -->
+<footer class="footer">
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <div>
+            <h3 style="color:white;">StroyGO</h3>
+            <p>© 2026 — Строим будущее с вами</p>
+        </div>
+        <div>
+            <i class="fab fa-telegram" style="font-size: 2rem; margin-right: 1rem;"></i>
+            <i class="fab fa-whatsapp" style="font-size: 2rem; margin-right: 1rem;"></i>
+            <i class="fas fa-envelope" style="font-size: 2rem;"></i>
+        </div>
+    </div>
+</footer>
+
+<!-- лёгкий декоративный элемент -->
+<div style="position: fixed; bottom: 30px; right: 30px; background: white; border-radius: 60px; padding: 12px 25px; box-shadow: 0 20px 40px -10px #2563eb; font-weight: 600; backdrop-filter: blur(6px);">
+    🔥 StroyGO — стройка нового поколения
+</div>
+
+</body>
+</html>
